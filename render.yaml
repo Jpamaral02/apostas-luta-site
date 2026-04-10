@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: apostas-luta-backend
+    env: node
+    plan: free
+    rootDir: .
+    buildCommand: npm install
+    startCommand: npm start
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      - key: BASE_URL
+        fromService:
+          type: web
+          name: apostas-luta-backend
+          property: host
+      - key: MP_ACCESS_TOKEN
+        sync: false

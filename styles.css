@@ -39,6 +39,11 @@ body {
   padding: 1.2rem 1.2rem 0;
 }
 
+.nav-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
 .nav h1,
 .hero-content h2 {
   font-family: "Bebas Neue", sans-serif;
@@ -122,6 +127,181 @@ body {
 .pick {
   color: var(--accent-2);
   font-weight: 700;
+}
+
+.main-wrap {
+  width: min(1040px, calc(100% - 2rem));
+  margin: 0 auto;
+}
+
+.tabs {
+  display: inline-flex;
+  gap: 0.4rem;
+  margin: 0.5rem 0 0.4rem;
+  padding: 0.3rem;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.tab-btn {
+  border: 1px solid transparent;
+  color: var(--muted);
+  background: transparent;
+  text-decoration: none;
+  padding: 0.5rem 0.8rem;
+  border-radius: 8px;
+  transition: border-color 200ms ease, color 200ms ease, background-color 200ms ease;
+}
+
+.tab-btn.is-active {
+  color: var(--text);
+  background: var(--card);
+  border-color: var(--border);
+}
+
+.admin {
+  margin: 1rem 0 2rem;
+  padding: 1rem;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: var(--card);
+}
+
+.admin h3 {
+  margin-top: 0;
+}
+
+.admin-help {
+  color: var(--muted);
+}
+
+.admin-form {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.admin-form input {
+  width: 100%;
+  border: 1px solid var(--border);
+  background: rgba(0, 0, 0, 0.2);
+  color: var(--text);
+  border-radius: 10px;
+  padding: 0.7rem 0.75rem;
+}
+
+.admin-form select {
+  width: 100%;
+  border: 1px solid var(--border);
+  background: rgba(0, 0, 0, 0.2);
+  color: var(--text);
+  border-radius: 10px;
+  padding: 0.7rem 0.75rem;
+}
+
+.admin-actions {
+  display: flex;
+  gap: 0.55rem;
+  flex-wrap: wrap;
+}
+
+.admin-list {
+  margin-top: 1rem;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.admin-item {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 0.8rem;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.admin-item p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.admin-item strong {
+  color: var(--text);
+}
+
+.payment-box {
+  margin: 0.7rem 0 1rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 0.85rem;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.payment-box p {
+  margin: 0.2rem 0;
+  color: var(--muted);
+}
+
+.summary-grid {
+  margin: 0.7rem 0 1rem;
+  display: grid;
+  gap: 0.6rem;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+}
+
+.summary-card {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.summary-card p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.summary-card strong {
+  display: block;
+  margin-top: 0.15rem;
+  color: var(--text);
+  font-size: 1.08rem;
+}
+
+.pay-link {
+  display: inline-block;
+  margin-top: 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.45rem 0.7rem;
+  color: var(--text);
+  text-decoration: none;
+  background: color-mix(in srgb, var(--accent) 20%, transparent);
+}
+
+.split-line {
+  border: 0;
+  border-top: 1px solid var(--border);
+  margin: 1rem 0;
+}
+
+.row-actions {
+  display: flex;
+  gap: 0.45rem;
+}
+
+.small-btn {
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  border-radius: 8px;
+  padding: 0.35rem 0.55rem;
+}
+
+.hidden {
+  display: none;
 }
 
 footer {

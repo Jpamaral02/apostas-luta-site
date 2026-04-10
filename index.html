@@ -21,7 +21,11 @@
     <header class="hero">
       <nav class="nav">
         <h1>Apostas Luta</h1>
-        <button id="themeBtn" class="ghost" type="button">Trocar destaque</button>
+        <div class="nav-actions">
+          <button id="themeBtn" class="ghost" type="button">Trocar destaque</button>
+          <button id="bettorsTabBtn" class="ghost" type="button">Apostadores</button>
+          <button id="adminTabBtn" class="ghost" type="button">Admin</button>
+        </div>
       </nav>
       <section class="hero-content">
         <p class="badge">Evento em destaque</p>
@@ -34,7 +38,90 @@
       </section>
     </header>
 
-    <main id="cards" class="cards"></main>
+    <main class="main-wrap">
+      <section class="tabs" aria-label="Seletor de abas">
+        <button id="siteTabBtn" class="tab-btn is-active" type="button">Site</button>
+        <button id="bettorsPanelTabBtn" class="tab-btn" type="button">Apostadores</button>
+        <button id="adminPanelTabBtn" class="tab-btn" type="button">Painel Admin</button>
+      </section>
+
+      <section id="sitePanel">
+        <div id="cards" class="cards"></div>
+      </section>
+
+      <section id="adminPanel" class="admin hidden" aria-hidden="true">
+        <h3>Painel Admin</h3>
+        <p class="admin-help">Cadastre e atualize os confrontos exibidos no site.</p>
+
+        <h3>Recebimento de Pagamentos</h3>
+        <p class="admin-help">Defina os dados bancarios que os apostadores vao usar para pagar.</p>
+        <form id="paymentForm" class="admin-form">
+          <input id="receiverName" name="receiverName" type="text" placeholder="Nome do recebedor" required />
+          <input id="bankName" name="bankName" type="text" placeholder="Banco" required />
+          <input id="agency" name="agency" type="text" placeholder="Agencia" required />
+          <input id="account" name="account" type="text" placeholder="Conta" required />
+          <input id="pixKey" name="pixKey" type="text" placeholder="Chave PIX" required />
+          <input id="mercadoPagoLink" name="mercadoPagoLink" type="url" placeholder="Link de pagamento Mercado Pago (opcional)" />
+          <input id="mercadoPagoApiUrl" name="mercadoPagoApiUrl" type="url" placeholder="URL da API Mercado Pago (opcional, ex: https://seu-backend.com)" />
+          <div class="admin-actions">
+            <button class="cta" type="submit">Salvar dados de pagamento</button>
+          </div>
+        </form>
+        <div id="paymentSummary" class="admin-list"></div>
+
+        <h3>Dashboard Financeiro</h3>
+        <div id="financialSummary" class="summary-grid"></div>
+
+        <form id="fightForm" class="admin-form">
+          <input id="duelo" name="duelo" type="text" placeholder="Duelo (ex: A. Costa vs J. Pereira)" required />
+          <input id="mercado" name="mercado" type="text" placeholder="Mercado (ex: Vencedor da luta)" required />
+          <input id="odd" name="odd" type="text" placeholder="Odd (ex: 1.85)" required />
+          <input id="pick" name="pick" type="text" placeholder="Pick (ex: Costa)" required />
+          <div class="admin-actions">
+            <button id="saveBtn" class="cta" type="submit">Salvar confronto</button>
+            <button id="cancelEditBtn" class="ghost hidden" type="button">Cancelar edicao</button>
+          </div>
+        </form>
+
+        <div id="adminList" class="admin-list"></div>
+      </section>
+
+      <section id="bettorsPanel" class="admin hidden" aria-hidden="true">
+        <h3>Cadastro de Apostadores</h3>
+        <p class="admin-help">Crie perfis de apostadores e registre as apostas da noite.</p>
+
+        <div id="paymentBox" class="payment-box"></div>
+
+        <form id="bettorForm" class="admin-form">
+          <input id="bettorName" name="bettorName" type="text" placeholder="Nome completo" required />
+          <input id="bettorEmail" name="bettorEmail" type="email" placeholder="E-mail" required />
+          <input id="bettorPhone" name="bettorPhone" type="text" placeholder="Telefone (opcional)" />
+          <div class="admin-actions">
+            <button class="cta" type="submit">Cadastrar apostador</button>
+          </div>
+        </form>
+
+        <div id="bettorsList" class="admin-list"></div>
+
+        <h3>Registrar Aposta</h3>
+        <form id="betForm" class="admin-form">
+          <select id="betBettor" name="betBettor" required></select>
+          <select id="betFight" name="betFight" required></select>
+          <select id="betPaymentMethod" name="betPaymentMethod" required>
+            <option value="PIX">PIX</option>
+            <option value="Transferencia">Transferencia</option>
+            <option value="MercadoPago">Mercado Pago</option>
+          </select>
+          <input id="betPick" name="betPick" type="text" placeholder="Palpite (ex: Nogueira por pontos)" required />
+          <input id="betAmount" name="betAmount" type="number" min="1" step="0.01" placeholder="Valor da aposta (R$)" required />
+          <div class="admin-actions">
+            <button class="cta" type="submit">Salvar aposta</button>
+          </div>
+        </form>
+
+        <div id="betsList" class="admin-list"></div>
+      </section>
+    </main>
 
     <footer>
       <p>Site estatico pronto para deploy. Atualizado em <span id="updated"></span>.</p>
