@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Apostas Luta | Noite de Combate</title>
+    <meta
+      name="description"
+      content="Plataforma de palpites para eventos de luta com estatisticas, card principal e picks da noite."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="grain"></div>
+    <header class="hero">
+      <nav class="nav">
+        <h1>Apostas Luta</h1>
+        <button id="themeBtn" class="ghost" type="button">Trocar destaque</button>
+      </nav>
+      <section class="hero-content">
+        <p class="badge">Evento em destaque</p>
+        <h2>Noite de Combate 287</h2>
+        <p>
+          Analise rapida, picks com valor e painel ao vivo para acompanhar a mudanca
+          das odds.
+        </p>
+        <a class="cta" href="#cards">Ver confrontos</a>
+      </section>
+    </header>
+
+    <main id="cards" class="cards"></main>
+
+    <footer>
+      <p>Site estatico pronto para deploy. Atualizado em <span id="updated"></span>.</p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
