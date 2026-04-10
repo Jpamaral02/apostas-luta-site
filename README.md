@@ -68,3 +68,5 @@ Tambem configure no painel do Mercado Pago o webhook:
 - `POST /api/payments/mercadopago/checkout`
 - `POST /api/payments/mercadopago/webhook`
 - `GET /api/payments/status/:betId`
+- `POST /api/fightnight/state` (body: `{ roomId, state }`)
+- `GET /api/fightnight/state?roomId=principal`

@@ -11,7 +11,9 @@ const configuredBaseUrl = process.env.BASE_URL || "";
 const mpAccessToken = process.env.MP_ACCESS_TOKEN;
 
 const paymentStorePath = path.join(process.cwd(), "data", "payment-status.json");
+const fightnightStorePath = path.join(process.cwd(), "data", "fightnight-sync.json");
 const paymentStatusByBet = new Map();
+const fightnightStateByRoom = new Map();
 
 let mpClient = null;
 if (mpAccessToken) {
@@ -53,8 +55,61 @@ async function savePaymentStore() {
   await fs.writeFile(paymentStorePath, JSON.stringify(plain, null, 2), "utf-8");
 }
 
+async function loadFightnightStore() {
+  try {
+    const raw = await fs.readFile(fightnightStorePath, "utf-8");
+    const parsed = JSON.parse(raw);
+    if (!parsed || typeof parsed !== "object") return;
+
+    Object.entries(parsed).forEach(([roomId, state]) => {
+      fightnightStateByRoom.set(roomId, state);
+    });
+  } catch {
+    await fs.mkdir(path.dirname(fightnightStorePath), { recursive: true });
+    await fs.writeFile(fightnightStorePath, "{}", "utf-8");
+  }
+}
+
+async function saveFightnightStore() {
+  const plain = Object.fromEntries(fightnightStateByRoom.entries());
+  await fs.mkdir(path.dirname(fightnightStorePath), { recursive: true });
+  await fs.writeFile(fightnightStorePath, JSON.stringify(plain, null, 2), "utf-8");
+}
+
 app.get("/api/health", (_req, res) => {
   res.json({ ok: true, mercadoPagoConfigured: Boolean(mpClient) });
+});
+
+app.post("/api/fightnight/state", async (req, res) => {
+  try {
+    const { roomId, state } = req.body || {};
+    const safeRoom = String(roomId || "principal").trim() || "principal";
+
+    if (!state || typeof state !== "object") {
+      return res.status(400).json({ message: "State invalido." });
+    }
+
+    fightnightStateByRoom.set(safeRoom, {
+      state,
+      updatedAt: new Date().toISOString()
+    });
+
+    await saveFightnightStore();
+    return res.json({ ok: true, roomId: safeRoom });
+  } catch {
+    return res.status(500).json({ message: "Erro ao salvar estado do Fight Night." });
+  }
+});
+
+app.get("/api/fightnight/state", (req, res) => {
+  const safeRoom = String(req.query.roomId || "principal").trim() || "principal";
+  const payload = fightnightStateByRoom.get(safeRoom);
+
+  if (!payload) {
+    return res.status(404).json({ message: "Estado nao encontrado." });
+  }
+
+  return res.json(payload);
 });
 
 app.post("/api/payments/mercadopago/checkout", async (req, res) => {
@@ -172,7 +227,7 @@ app.get("*", (_req, res) => {
   res.sendFile(path.join(process.cwd(), "index.html"));
 });
 
-loadPaymentStore().then(() => {
+Promise.all([loadPaymentStore(), loadFightnightStore()]).then(() => {
   app.listen(port, () => {
     console.log(`Servidor online na porta ${port}`);
   });
